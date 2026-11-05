@@ -1,0 +1,6 @@
+node_modules
+dist
+.env
+routing.json
+BOT_TOKEN
+DATABASE_URL

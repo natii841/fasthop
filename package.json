@@ -1,0 +1,28 @@
+{
+  "name": "fasthop-doh",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=20.6"
+  },
+  "scripts": {
+    "dev": "tsx watch --env-file=.env src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "dns-packet": "^5.6.1",
+    "drizzle-orm": "^0.45.4",
+    "fastify": "^5.12.8",
+    "grammy": "^1.46.0",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@types/dns-packet": "^5.6.5",
+    "@types/node": "^20.19.43",
+    "@types/pg": "^8.23.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
