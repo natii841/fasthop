@@ -3,7 +3,11 @@ use crate::{
     validate,
 };
 use chrono::{DateTime, Utc};
-use sqlx::{postgres::PgPoolOptions, PgPool};
+use sqlx::{
+    postgres::{PgConnectOptions, PgPoolOptions},
+    PgPool,
+};
+use std::str::FromStr;
 use std::time::Duration;
 
 pub async fn find_subscription(pool: &PgPool, token: &str) -> sqlx::Result<Option<Subscription>> {
@@ -42,10 +46,11 @@ pub async fn recent_logs(
 }
 
 pub async fn connect(url: &str, max_conns: u32) -> sqlx::Result<PgPool> {
+    let options = PgConnectOptions::from_str(url)?.statement_cache_capacity(0);
     PgPoolOptions::new()
         .max_connections(max_conns)
         .acquire_timeout(Duration::from_secs(5))
-        .connect(url)
+        .connect_with(options)
         .await
 }
 
