@@ -6,7 +6,7 @@ COPY dashboard/src ./src
 RUN npm install && npm run build
 
 # ---- Rust build ----
-FROM rust:1.88-alpine AS build
+FROM rust:1.96-alpine AS build
 RUN apk add --no-cache musl-dev
 WORKDIR /app
 COPY Cargo.toml ./
