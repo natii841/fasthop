@@ -1,0 +1,17 @@
+@import "tailwindcss";
+:root { font-family: Inter, system-ui, sans-serif; color: #e5e7eb; background: #111827; }
+body { margin: 0; min-width: 320px; }
+main { max-width: 960px; margin: 0 auto; padding: 5rem 1.5rem; }
+h1 { font-size: clamp(2rem, 6vw, 4rem); margin: .25rem 0 1rem; letter-spacing: -.04em; }
+.eyebrow { color: #60a5fa; font-weight: 700; letter-spacing: .2em; }
+.muted { color: #9ca3af; font-size: 1.1rem; }
+section { margin-top: 3rem; padding: 1.25rem; border: 1px solid #374151; border-radius: .75rem; display: flex; justify-content: space-between; }
+.status { color: #34d399; }
+form { display: flex; gap: .5rem; margin-top: 2rem; }
+input, button { border: 1px solid #4b5563; border-radius: .4rem; padding: .7rem; background: #1f2937; color: #e5e7eb; }
+button { cursor: pointer; background: #2563eb; border-color: #2563eb; }
+.error { color: #fca5a5; }
+.column { display: block; }
+.column h2 { margin-top: 0; }
+.row { display: flex; gap: 1rem; justify-content: space-between; border-top: 1px solid #374151; padding: .7rem 0; }
+small { color: #9ca3af; }

@@ -1,4 +1,11 @@
-# FastHop DoH & Telegram Bot
+# FastHop DoH, Telegram Bot & Dashboard
+
+The runtime is a Rust workspace:
+
+- `crates/fasthop-core` — HTTP/DoH server, routing, sessions, upstreams, admin and static files.
+- `crates/fasthop-bot` — Telegram bot, spawned by the core binary.
+- `crates/fasthop-shared` — shared models and routing validation.
+- `dashboard` — React + TypeScript + Vite + Tailwind frontend.
 
 Token-gated DNS-over-HTTPS (RFC 8484) resolver + Telegram subscription bot.
 
@@ -9,7 +16,8 @@ Token-gated DNS-over-HTTPS (RFC 8484) resolver + Telegram subscription bot.
 
 ## Run
     cp .env.example .env && cp routing.example.json routing.json   # edit both
-    npm install && npm run dev
+    cargo run -p fasthop-core
+Dashboard development: `cd dashboard && npm install && npm run dev`
 Docker: `docker build -t fasthop . && docker run --env-file .env -p 8080:8080 fasthop`
 
 DoH **requires valid HTTPS** — put it behind Railway's domain, Caddy or nginx. `trustProxy` is on so the real client IP is read from `X-Forwarded-For`.
@@ -28,6 +36,7 @@ DoH **requires valid HTTPS** — put it behind Railway's domain, Caddy or nginx.
    - `DATABASE_URL`: Railway PostgreSQL connection string.
    - `BASE_URL`: the public HTTPS URL of this service, without a trailing slash.
    - `ADMIN_IDS`: comma-separated Telegram user IDs for bot administrators.
+   - `ADMIN_TOKEN`: long random bearer token for the dashboard/admin API.
    - `ROUTING_JSON`: JSON array containing your production routing rules. Start
      from [`routing.example.json`](./routing.example.json), replace its example
      values, and paste the resulting one-line JSON into Railway.

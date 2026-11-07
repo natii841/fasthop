@@ -20,6 +20,12 @@ async function main() {
   app.get('/healthz', async () => ({ ok: true }));
 
   const bot = createBot();
+
+  // Prevents grammY from halting polling on errors and logs the failure
+  bot.catch((err) => {
+    console.error(`[bot error] [user:${err.ctx?.from?.id}]:`, err.error);
+  });
+
   await bot.init();
   if (config.webhookUrl) {
     if (!config.webhookSecret) throw new Error('WEBHOOK_SECRET is required when WEBHOOK_URL is set');
@@ -29,6 +35,7 @@ async function main() {
   } else {
     await bot.api.deleteWebhook();
     void bot.start({ drop_pending_updates: true });
+    console.log('[bot] polling started');
   }
 
   const timers = [

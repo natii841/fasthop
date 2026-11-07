@@ -1,0 +1,11 @@
+[package]
+name = "fasthop-bot"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+fasthop-shared = { path = "../fasthop-shared" }
+teloxide.workspace = true
+tokio.workspace = true
+sqlx.workspace = true

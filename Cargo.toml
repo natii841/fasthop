@@ -1,0 +1,47 @@
+[workspace]
+resolver = "2"
+members = ["crates/fasthop-core", "crates/fasthop-bot", "crates/fasthop-shared"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.82"
+
+[workspace.dependencies]
+fasthop-shared = { path = "crates/fasthop-shared" }
+fasthop-bot = { path = "crates/fasthop-bot" }
+
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal", "sync", "time", "net"] }
+axum = "0.8"
+tower-http = { version = "0.6", features = ["compression-full", "set-header"] }
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "tls-rustls", "postgres", "macros", "migrate", "chrono"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", features = ["serde"] }
+dotenvy = "0.15"
+anyhow = "1"
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+dashmap = "6"
+arc-swap = "1"
+ahash = "0.8"
+bytes = "1"
+base64 = "0.22"
+rand = "0.8"
+hickory-proto = "=0.24.0"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "http2"] }
+mimalloc = "0.1"
+include_dir = "0.7"
+mime_guess = "2"
+jsonwebtoken = "9"
+argon2 = "0.5"
+subtle = "2"
+teloxide = { version = "0.13", default-features = false, features = ["rustls", "macros", "ctrlc_handler"] }
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = true
+opt-level = 3
