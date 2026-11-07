@@ -10,9 +10,10 @@ FROM rust:1.88-alpine AS build
 RUN apk add --no-cache musl-dev
 WORKDIR /app
 COPY Cargo.toml ./
+COPY Cargo.lock ./
 COPY crates ./crates
 COPY --from=dashboard /app/dashboard/dist ./dashboard/dist
-RUN cargo build --release -p fasthop-core
+RUN cargo build --release --locked -p fasthop-core
 
 # ---- runtime ----
 FROM alpine:3.21
