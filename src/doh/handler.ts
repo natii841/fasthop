@@ -36,12 +36,14 @@ export function registerDoh(app: FastifyInstance) {
   app.addContentTypeParser('application/dns-message', { parseAs: 'buffer', bodyLimit: 4096 },
     (_req, body, done) => done(null, body));
 
-  // RFC 8484 GET: ?dns=<base64url>
-  app.get<{ Params: { token: string }; Querystring: { dns?: string } }>('/b/:token', (req, reply) => {
-    const dns = req.query.dns;
-    return serve(req, reply, dns ? Buffer.from(dns, 'base64url') : null);
-  });
-  // RFC 8484 POST: binary body
-  app.post<{ Params: { token: string }; Querystring: { dns?: string } }>('/b/:token', (req, reply) =>
-    serve(req, reply, Buffer.isBuffer(req.body) ? req.body : null));
+  for (const path of ['/b/:token', '/dns-query/:token']) {
+    // RFC 8484 GET: ?dns=<base64url>
+    app.get<{ Params: { token: string }; Querystring: { dns?: string } }>(path, (req, reply) => {
+      const dns = req.query.dns;
+      return serve(req, reply, dns ? Buffer.from(dns, 'base64url') : null);
+    });
+    // RFC 8484 POST: binary body
+    app.post<{ Params: { token: string }; Querystring: { dns?: string } }>(path, (req, reply) =>
+      serve(req, reply, Buffer.isBuffer(req.body) ? req.body : null));
+  }
 }

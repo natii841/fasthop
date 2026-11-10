@@ -15,7 +15,9 @@ use hickory_proto::{
 use std::{collections::HashMap, net::IpAddr, sync::Arc, time::Duration};
 
 pub fn router() -> Router<Arc<AppState>> {
-    Router::new().route("/b/{token}", get(get_query).post(post_query))
+    Router::new()
+        .route("/b/{token}", get(get_query).post(post_query))
+        .route("/dns-query/{token}", get(get_query).post(post_query))
 }
 
 async fn get_query(

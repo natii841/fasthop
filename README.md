@@ -9,7 +9,7 @@ The runtime is a Rust workspace:
 
 Token-gated DNS-over-HTTPS (RFC 8484) resolver + Telegram subscription bot.
 
-- `GET|POST https://<domain>/b/<token>` — GET uses `?dns=<base64url>`, POST uses `application/dns-message`.
+- `GET|POST https://<domain>/dns-query/<token>` — GET uses `?dns=<base64url>`, POST uses `application/dns-message`. The legacy `/b/<token>` path is also supported.
 - Domains in your routing rules get answers you define; everything else is proxied to Cloudflare, falling back to Google.
 - Access = `trial` (5h by default) or `active` (paid) and unexpired. Expired/paused tokens get 403.
 - One device at a time: a second network (IPv4 /24 or IPv6 /64) is refused with 429 while the first is active. Roaming works: after 120s of silence a new network takes over.
