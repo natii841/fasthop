@@ -1,0 +1,12 @@
+[Interface]
+PrivateKey = <client-private-key>
+Address = 10.77.0.2/32
+DNS = 1.1.1.1
+
+[Peer]
+PublicKey = <relay-public-key>
+Endpoint = relay.example.net:51820
+PersistentKeepalive = 25
+# Replace these documentation ranges with measured, provider-approved game
+# endpoint CIDRs. Keep the list narrow; 0.0.0.0/0 would tunnel all traffic.
+AllowedIPs = 203.0.113.0/24, 198.51.100.0/24, 192.0.2.0/24

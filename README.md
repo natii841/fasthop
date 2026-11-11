@@ -22,6 +22,22 @@ Docker: `docker build -t fasthop . && docker run --env-file .env -p 8080:8080 fa
 
 DoH **requires valid HTTPS** — put it behind Railway's domain, Caddy or nginx. `trustProxy` is on so the real client IP is read from `X-Forwarded-For`.
 
+## Low-latency UDP relay VPS
+
+The Railway service remains the DoH, bot, and dashboard control plane. The
+game-traffic data plane is a separate `fasthop-relay` Rust binary intended for
+a UDP-capable VPS near the selected game region. It uses a fixed upstream
+endpoint, per-client ephemeral UDP sockets, bounded session channels,
+`SO_REUSEPORT`, and enlarged kernel socket buffers.
+
+See [`infra/README.md`](./infra/README.md) for the systemd unit, WireGuard
+split-tunnel template, sysctl profile, iptables rules, and latency/jitter/loss
+test checklist. Build it with:
+
+```bash
+cargo build --release -p fasthop-relay
+```
+
 ## Deploy on Railway
 
 1. Create a new Railway project and deploy this repository. Railway will use

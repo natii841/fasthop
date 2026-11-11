@@ -1,0 +1,23 @@
+[Unit]
+Description=FastHop low-latency UDP relay
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=fasthop
+Group=fasthop
+WorkingDirectory=/opt/fasthop-relay
+EnvironmentFile=/etc/fasthop/relay.env
+ExecStart=/opt/fasthop-relay/fasthop-relay
+Restart=always
+RestartSec=2
+LimitNOFILE=1048576
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/fasthop
+
+[Install]
+WantedBy=multi-user.target

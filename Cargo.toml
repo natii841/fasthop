@@ -1,6 +1,11 @@
 [workspace]
 resolver = "2"
-members = ["crates/fasthop-core", "crates/fasthop-bot", "crates/fasthop-shared"]
+members = [
+    "crates/fasthop-core",
+    "crates/fasthop-bot",
+    "crates/fasthop-shared",
+    "crates/fasthop-relay",
+]
 
 [workspace.package]
 version = "0.1.0"
@@ -27,6 +32,7 @@ dashmap = "6"
 arc-swap = "1"
 ahash = "0.8"
 bytes = "1"
+socket2 = { version = "0.5", features = ["all"] }
 base64 = "0.22"
 rand = "0.8"
 hickory-proto = "=0.24.0"
